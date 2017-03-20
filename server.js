@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var config = require('./config');
 var User = require('./app/models/user');
+var jwt = require('jsonwebtoken');
 
 mongoose.connect(config.database);
 
@@ -20,17 +21,13 @@ app.use(function(req, res, next) {
     next();
 });
 
+// Authentication
+
 // api middleware
 apiRouter.use(function(req, res, next) {
     console.log('somebody just came to our app');
     next();
 })
-
-apiRouter.get('/', function(req, res) {
-    res.json({
-        message: "This is working"
-    });
-});
 
 apiRouter.route('/users')
     .get(function(req, res) {
@@ -67,6 +64,77 @@ apiRouter.route('/users')
             });
         }
     });
+
+apiRouter.route('/users/:user_id')
+    .get(function(req, res) {
+        User.findById(req.params.user_id, function(err, user) {
+            if (err) res.send(err);
+
+            res.json(user);
+        });
+    })
+    .put(function(req, res) {
+        User.findById(req.params.user_id, function(err, user) {
+            if (err) res.send(err);
+
+            if (req.body.email) user.email = req.body.email;
+            if (req.body.password) user.password = req.body.password;
+
+            user.save(function(err) {
+                if (err) res.send(err);
+
+                res.json({
+                    message: 'User updates'
+                });
+            });
+        })
+    })
+    .delete(function(req, res) {
+        User.remove({
+            _id: req.params.user_id
+        }, function(err, user) {
+            if (err) return res.send(err);
+
+            res.json({
+                message: 'Successfully deleted'
+            })
+        });
+    });
+
+apiRouter.post('/authenticate', function(req, res) {
+    User.findOne({
+        email: req.body.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found'
+            });
+        } else if (user) {
+            var validPassword = user.comparePassword(req.body.password);
+            if (!validPassword) {
+                res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password'
+                });
+            } else {
+                var token = jwt.sign({
+                    email: user.email
+                }, config.secret, {
+                    expiresIn: 10090
+                });
+
+                res.json({
+                    success: true,
+                    message: 'Enjoy Your Token',
+                    token: token
+                });
+            }
+        }
+    });
+});
 
 app.use('/api', apiRouter);
 app.listen(config.port);
