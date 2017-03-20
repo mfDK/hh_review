@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
 });
 
 // api middleware
-api.Router.use(function(req, res, next) {
+apiRouter.use(function(req, res, next) {
     console.log('somebody just came to our app');
     next();
 })
@@ -31,6 +31,42 @@ apiRouter.get('/', function(req, res) {
         message: "This is working"
     });
 });
+
+apiRouter.route('/users')
+    .get(function(req, res) {
+        mongoose.model('User').find({}, function(err, users) {
+            if (err) {
+                return console.log(err);
+            } else {
+                res.json(users);
+            }
+        });
+    })
+    .post(function(req,res) {
+        if (!req.body.email || !req.body.password) {
+            res.json({
+                success: false,
+                message: 'please enter email and password'
+            })
+        } else {
+            var newUser = new User({
+                email: req.body.email,
+                password: req.body.password
+            });
+            newUser.save(function(err) {
+                if (err) {
+                    return res.json({
+                        success: false,
+                        message: 'that email address already exists'
+                    })
+                }
+                res.json({
+                    success: true,
+                    message: 'Succesfully created new user'
+                });
+            });
+        }
+    });
 
 app.use('/api', apiRouter);
 app.listen(config.port);
