@@ -21,13 +21,43 @@ app.use(function(req, res, next) {
     next();
 });
 
-// Authentication
+app.get('/', function(req, res) {
+    res.json({
+        message: 'Welcome to the API'
+    });
+})
 
+app.get('/', function(req, res) {
+    res.json({
+        message: 'Welcome to the API'
+    });
+})
+
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R0d29AZW1haWwuY29tIiwiaWF0IjoxNDkwMDU4MjQ4LCJleHAiOjE0OTAwNjgzMzh9.fwj0X3QpdJFF-4Osfhq_XK97LT6ZQ1LIougBRX1xb3c"
 // api middleware
 apiRouter.use(function(req, res, next) {
-    console.log('somebody just came to our app');
-    next();
-})
+    var token = req.body.access_token || req.body.token || req.headers['x-access-control'];
+    console.log(token);
+    if (token) {
+        jwt.verify(token, config.secret, function(err, decoded) {
+            if (err) {
+                return res.status(403).send({
+                    success: false,
+                    message: 'Failed to authenticate token'
+                });
+            } else {
+                req.decoded = decoded
+                next();
+            }
+        });
+    } else {
+        // if no token
+        return res.status(403).send({
+            success: false,
+            message: 'No Token Provided'
+        })
+    }
+});
 
 apiRouter.route('/users')
     .get(function(req, res) {
@@ -101,6 +131,7 @@ apiRouter.route('/users/:user_id')
         });
     });
 
+// Authentication
 apiRouter.post('/authenticate', function(req, res) {
     User.findOne({
         email: req.body.email
