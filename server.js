@@ -23,7 +23,9 @@ app.use(express.static(__dirname + '/public'));
 
 // API ROUTES
 var apiRoutes = require('./app/routes/api')(app,express);
+var reviewRoutes = require('./app/routes/reviewApi')(app,express);
 app.use('/api', apiRoutes);
+app.use('/reviews', reviewRoutes);
 
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));

@@ -17,7 +17,11 @@ var UserSchema = new Schema({
         type: String,
         enum: ['Client', 'Manager', 'Admin'],
         default: 'Client'
-    }
+    },
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
 });
 
 UserSchema.pre('save', function(next) {
