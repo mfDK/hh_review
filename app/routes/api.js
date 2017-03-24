@@ -7,7 +7,6 @@ var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
 module.exports = function(app, express) {
-    // Authentication
     apiRouter.post('/authenticate', function(req, res) {
         User.findOne({
             email: req.body.email
@@ -137,5 +136,8 @@ module.exports = function(app, express) {
                 })
             });
         });
+    apiRouter.get('/me', function(req, res) {
+        res.send(req.decoded);
+    });
     return apiRouter;
 }
