@@ -29,6 +29,11 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'reviewController',
                 controllerAs: 'review'
             })
+            .when('/reviews/create', {
+                templateUrl: 'app/views/pages/reviews/single.html',
+                controller: 'createReviewController',
+                controllerAs: 'review'
+            })
 
         $locationProvider.html5Mode(true);
     });

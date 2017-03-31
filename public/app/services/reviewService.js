@@ -7,6 +7,14 @@ angular.module('reviewService', [])
             return $http.get('/reviews')
         };
 
+        reviewFactory.get = function(id) {
+            return $http.get('/reviews')
+        }
+
+        reviewFactory.create = function(reviewData) {
+            return $http.post('/reviews', reviewData)
+        }
+
         return reviewFactory;
 
     })

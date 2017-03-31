@@ -19,7 +19,6 @@ module.exports = function(app, express) {
                     });
                 } else {
                     req.user = decoded;
-                    req.decoded = decoded;
                     next();
                 }
             });
@@ -33,7 +32,7 @@ module.exports = function(app, express) {
     });
     reviewRouter.route('/')
         .post(function(req, res) {
-            if (!req.body.name || !req.body.review) {
+            if (!req.body.city || !req.body.review) {
                 res.json({
                     success: false,
                     message: "Please enter a name and your review"
@@ -69,6 +68,15 @@ module.exports = function(app, express) {
                 }
             })
         });
+
+    reviewRouter.route('/reviews/:review_id')
+        .get(function(req, res) {
+            Review.findById(req.params.review_id, function(err, review) {
+                if (err) res.send(err);
+
+                res.json(review)
+            })
+        })
     reviewRouter.route('/myreviews')
         .get(function(req, res) {
             Review.find({ _creator: req.user.email }, function(err,reviews) {

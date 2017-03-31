@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
         Reviews
-        <a href="/users/create" class="btn btn-default">
+        <a href="/reviews/create" class="btn btn-default">
             <span class="glyphicon glyphicon-plus"></span>
             New Review
         </a>
@@ -20,6 +20,7 @@
             <th>ID</th>
             <th>Email</th>
             <th>Review</th>
+            <th>City</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
             <td>{{ review._id }}</td>
             <td>{{ review._creator }}</td>
             <td>{{ review.review }}</td>
+            <td>{{ review.city }}</td>
         </tr>
     </tbody>
 </table>

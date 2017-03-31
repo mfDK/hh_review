@@ -9,6 +9,7 @@
     <base href="/">
     <!-- custom css from cdn.. -->
     <link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/libs/bootstrap/dist/js/bootstrap.min.js">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- load angular and angular routing via cdn  -->
@@ -39,7 +40,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
-                    <li ng-if="main.loggedIn" class="navbar-test">Hello {{ main.user.email }}</li>
+                    <li ng-if="main.loggedIn" class="navbar-test">Hello {{ main.user }}</li>
                     <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
                 </ul>
             </div>

@@ -1,0 +1,45 @@
+<div class="page-header">
+    <h1 ng-if="review.type == 'create'">Create Review</h1>
+</div>
+
+<form class="form-horizontal" ng-submit="review.saveReview()">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Review</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="review.reviewData.name" placeholder="Enter the Place">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <select name="city" class="form-control" id="reviewCity" ng-model="review.reviewData.city">
+                <option value="brooklyn">Brooklyn</option>
+                <option value="queens">Queens</option>
+                <option value="manhattan">Manhattan</option>
+                <option value="bronx">Bronx</option>
+                <option value="staten-island">Staten Island</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Review</label>
+        <div class="col-sm-6">
+            <textarea class="form-control" ng-model="review.reviewData.review" rows="10" placeholder="Enter Your Review!"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button
+                type="submit"
+                class="btn btn-success btn-lg btn-block"
+                ng-if="review.type == 'create'">Create Review</button>
+        </div>
+    </div>
+</form>
+
+<div class="row show-hide-message" ng-show="review.message">
+    <div class="col-sm-6 col-sm-offset-2">
+        <div class="alert alert-info">
+            {{ review.message }}
+        </div>
+    </div>
+</div>
