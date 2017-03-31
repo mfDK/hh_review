@@ -19,6 +19,7 @@ module.exports = function(app, express) {
                     });
                 } else {
                     req.user = decoded;
+                    req.decoded = decoded;
                     next();
                 }
             });
@@ -41,9 +42,9 @@ module.exports = function(app, express) {
                 var newReview = new Review({
                     name: req.body.name,
                     review: req.body.review,
-                    _creator: req.user.email
+                    _creator: req.user.email,
+                    city: req.body.city
                 });
-                console.log(req.user);
                 newReview.save(function(err) {
                     if (err) {
                         return res.json({
@@ -51,13 +52,6 @@ module.exports = function(app, express) {
                             message: "an error with your review occured"
                         })
                     } else {
-                        Review
-                            .findOne({ name: req.body.name })
-                            .populate('_creator')
-                            .exec(function(err, review) {
-                                if (err) return console.log(err);
-                                console.log('The Creator is %s', review._creator)
-                            });
                         res.json({
                             success: true,
                             message: "Successfully created review"
@@ -74,6 +68,12 @@ module.exports = function(app, express) {
                     res.json(reviews)
                 }
             })
-        })
+        });
+    reviewRouter.route('/myreviews')
+        .get(function(req, res) {
+            Review.find({ _creator: req.user.email }, function(err,reviews) {
+                return res.json(reviews);
+            })
+        });
     return reviewRouter;
 }

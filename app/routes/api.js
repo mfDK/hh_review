@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var config = require('../../config');
 var jwt = require('jsonwebtoken');
 var User = require('../models/user');
+var Review = require('../models/review');
 
 module.exports = function(app, express) {
     apiRouter.post('/authenticate', function(req, res) {
@@ -137,7 +138,7 @@ module.exports = function(app, express) {
             });
         });
     apiRouter.get('/me', function(req, res) {
-        res.send(req.decoded);
+        res.send(req.decoded.email);
     });
     return apiRouter;
 }

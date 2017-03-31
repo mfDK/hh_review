@@ -24,6 +24,11 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'userEditController',
                 controllerAs: 'user'
             })
+            .when('/allreviews', {
+                templateUrl: 'app/views/pages/reviews/reviews.html',
+                controller: 'reviewController',
+                controllerAs: 'review'
+            })
 
         $locationProvider.html5Mode(true);
     });

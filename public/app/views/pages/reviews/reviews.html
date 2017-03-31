@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h1>
+        Reviews
+        <a href="/users/create" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span>
+            New Review
+        </a>
+    </h1>
+</div>
+
+<!-- LOADING MESSAGE -->
+<div class="jumbotron text-center" ng-show="review.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Reviews...</p>
+</div>
+
+<table class="table table-bordered table-striped" ng-show="review.reviews">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- LOOP OVER THE USERS -->
+        <tr ng-repeat="review in review.reviews">
+            <td>{{ review._id }}</td>
+            <td>{{ review._creator }}</td>
+            <td>{{ review.review }}</td>
+        </tr>
+    </tbody>
+</table>
