@@ -29,7 +29,7 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'reviewController',
                 controllerAs: 'review'
             })
-            .when('/reviews/create', {
+            .when('/create-review', {
                 templateUrl: 'app/views/pages/reviews/single.html',
                 controller: 'createReviewController',
                 controllerAs: 'review'
