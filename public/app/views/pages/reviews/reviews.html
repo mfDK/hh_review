@@ -6,19 +6,17 @@
             New Review
         </a>
     </h1>
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-6">
-            <select name="city" class="form-control" id="reviewCity" ng-model="searchText">
-                <option></option>
-                <option value="brooklyn">Brooklyn</option>
-                <option value="queens">Queens</option>
-                <option value="manhattan">Manhattan</option>
-                <option value="bronx">Bronx</option>
-                <option value="staten-island">Staten Island</option>
-            </select>
-        </div>
+    <div>
+        <select name="city" class="form-control" id="reviewCity" ng-model="searchText">
+            <option></option>
+            <option value="brooklyn">Brooklyn</option>
+            <option value="queens">Queens</option>
+            <option value="manhattan">Manhattan</option>
+            <option value="bronx">Bronx</option>
+            <option value="staten-island">Staten Island</option>
+        </select>
     </div>
+
 </div>
 
 <!-- LOADING MESSAGE -->
@@ -30,7 +28,6 @@
 <table class="table table-bordered table-striped" ng-show="review.reviews">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Email</th>
             <th>Review</th>
             <th>City</th>
@@ -39,7 +36,6 @@
     <tbody>
         <!-- LOOP OVER THE USERS -->
         <tr ng-repeat="review in review.reviews | filter:searchText">
-            <td>{{ review._id }}</td>
             <td>{{ review._creator }}</td>
             <td>{{ review.review }}</td>
             <td>{{ review.city }}</td>
