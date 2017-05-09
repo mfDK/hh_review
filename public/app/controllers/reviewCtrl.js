@@ -33,4 +33,6 @@ angular.module('reviewCtrl', ['reviewService'])
                     rc.message = data.data.message;
                 });
         };
+
+        rc.cities = ["brooklyn", "queens", "manhattan", "bronx", "staten island"];
     })
