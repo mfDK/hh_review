@@ -15,7 +15,15 @@ angular.module('reviewCtrl', ['reviewService'])
         var rc = this;
         rc.type = 'create';
 
+        rc.submitForm = function(isValid) {
+            if (isValid) {
+                rc.saveReview();
+            } else {
+                console.log("form is not valid")
+            }
+        }
         rc.saveReview = function() {
+            console.log('reached create review method');
             rc.processing = true;
             Review.create(rc.reviewData)
                 .then(function(data) {

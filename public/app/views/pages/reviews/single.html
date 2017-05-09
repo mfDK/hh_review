@@ -2,11 +2,18 @@
     <h1 ng-if="review.type == 'create'">Create Review</h1>
 </div>
 
-<form class="form-horizontal" ng-submit="review.saveReview()">
+<form class="form-horizontal" name="reviewForm" ng-submit="review.submitForm(reviewForm.$valid)" novalidate>
     <div class="form-group">
         <label class="col-sm-2 control-label">Review</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="review.reviewData.name" placeholder="Enter the Place">
+            <input
+                type="text"
+                name="placeName"
+                class="form-control"
+                ng-model="review.reviewData.name"
+                placeholder="Enter the Place"
+                ng-minlength="12">
+            <span class="error" ng-show="reviewForm.placeName.$error.minlength">Too Short!</span>
         </div>
     </div>
     <div class="form-group">
@@ -23,13 +30,25 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Review</label>
         <div class="col-sm-6">
-            <textarea class="form-control" ng-model="review.reviewData.review" rows="10" placeholder="Enter Your Review!"></textarea>
+            <textarea
+                class="form-control"
+                name="review"
+                ng-model="review.reviewData.review"
+                rows="10"
+                placeholder="Enter Your Review!"
+                ng-minlength="25"
+                ng-maxlength="300">
+            </textarea>
+            <span class="error" ng-show="reviewForm.review.$error.minlength">Too Short</span>
+            <span class="error" ng-show="reviewForm.review.$error.maxlength">Too Long</span>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
             <button
+                name="submitReview"
                 type="submit"
+                ng-disabled="reviewForm.$invalid"
                 class="btn btn-success btn-lg btn-block"
                 ng-if="review.type == 'create'">Create Review</button>
         </div>
