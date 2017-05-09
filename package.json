@@ -21,6 +21,11 @@
     "passport-jwt": "^2.2.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-minify": "0.0.15",
+    "gulp-rename": "^1.2.2",
+    "jshint": "^2.9.4",
     "nodemon": "^1.11.0"
   }
 }

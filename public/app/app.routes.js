@@ -33,7 +33,7 @@ angular.module('app.routes', ['ngRoute'])
                 templateUrl: 'app/views/pages/reviews/single.html',
                 controller: 'createReviewController',
                 controllerAs: 'review'
-            })
+            });
 
         $locationProvider.html5Mode(true);
     });

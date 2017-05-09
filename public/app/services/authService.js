@@ -11,7 +11,7 @@ angular.module('authService', [])
                 AuthToken.setToken(data.data.token);
                 return data;
             });
-        }
+        };
         authFactory.logout = function() {
             // clear the token
             AuthToken.setToken();
@@ -35,7 +35,7 @@ angular.module('authService', [])
             }
         };
 
-        return authFactory
+        return authFactory;
     })
 
     // factory for handling tokens, inject $window to store token client-side
@@ -45,7 +45,7 @@ angular.module('authService', [])
         // get the token out of local storage from browser
         authTokenFactory.getToken = function() {
             return $window.localStorage.getItem('token');
-        }
+        };
 
         // set the token or clear the token if token is passed set, if no clear it from local storage
         authTokenFactory.setToken = function(token) {

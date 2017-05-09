@@ -8,7 +8,7 @@ angular.module('reviewCtrl', ['reviewService'])
             .then(function(reviewData) {
                 rc.processing = false;
                 rc.reviews = reviewData.data;
-            })
+            });
     })
 
     .controller('createReviewController', function(Review) {
@@ -19,9 +19,9 @@ angular.module('reviewCtrl', ['reviewService'])
             if (isValid) {
                 rc.saveReview();
             } else {
-                console.log("form is not valid")
+                console.log("form is not valid");
             }
-        }
+        };
         rc.saveReview = function() {
             console.log('reached create review method');
             rc.processing = true;
@@ -35,4 +35,4 @@ angular.module('reviewCtrl', ['reviewService'])
         };
 
         rc.cities = ["brooklyn", "queens", "manhattan", "bronx", "staten island"];
-    })
+    });

@@ -21,7 +21,7 @@ angular.module('userCtrl', ['userService'])
                             vm.users = data.data;
                         });
                 });
-        }
+        };
     })
     .controller('userCreateController', function(User) {
         var vm = this;
