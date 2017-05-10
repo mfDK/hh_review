@@ -13,6 +13,14 @@ angular.module('mainCtrl', [])
                 });
         });
 
+        vm.validateLoginForm = function(isValid) {
+            if (isValid) {
+                vm.doLogin();
+            } else {
+                console.log("login form is not valid on the front-end");
+            }
+        };
+
         vm.doLogin = function() {
             vm.processing = true;
 
@@ -25,7 +33,7 @@ angular.module('mainCtrl', [])
                     if (data.data.success) {
                         $location.path('/users');
                     } else {
-                        vm.error = data.message;
+                        vm.error = data.data.message;
                     }
                 });
         };

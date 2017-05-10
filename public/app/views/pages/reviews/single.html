@@ -13,15 +13,16 @@
                 ng-model="review.reviewData.name"
                 placeholder="Enter the Place"
                 ng-minlength="3"
-                ng-maxlength="45">
+                ng-maxlength="45"
+                required>
             <span class="error" ng-show="reviewForm.placeName.$error.minlength">Too Short!</span>
             <span class="error" ng-show="reviewForm.placeName.$error.maxlength">There is not restaurant with this long of a name</span>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
-            <select name="city" class="form-control" id="reviewCity" ng-model="review.reviewData.city">
-                <<option value="" disabled selected>Select a City</option>
+            <select name="city" class="form-control" id="reviewCity" ng-model="review.reviewData.city" required>
+                <option value="" disabled selected>Select a City</option>
                 <option ng-repeat="city in review.cities">{{city}}</option>
             </select>
         </div>
@@ -36,7 +37,8 @@
                 rows="10"
                 placeholder="Enter Your Review!"
                 ng-minlength="25"
-                ng-maxlength="300">
+                ng-maxlength="300"
+                required>
             </textarea>
             <span class="error" ng-show="reviewForm.review.$error.minlength">Too Short</span>
             <span class="error" ng-show="reviewForm.review.$error.maxlength">Too Long</span>
